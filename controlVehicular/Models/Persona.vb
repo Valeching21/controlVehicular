@@ -7,6 +7,19 @@
     Private _fechaNacimiento As Date
     Private _telefono As String
 
+    Public Sub New()
+    End Sub
+
+    Public Sub New(idPersona As Integer, nombre As String, apellido1 As String, apellido2 As String, nacionalidad As String, fechaNacimiento As Date, telefono As String)
+        Me.IdPersona = idPersona
+        Me.Nombre = nombre
+        Me.Apellido1 = apellido1
+        Me.Apellido2 = apellido2
+        Me.Nacionalidad = nacionalidad
+        Me.FechaNacimiento = fechaNacimiento
+        Me.Telefono = telefono
+    End Sub
+
     Public Property IdPersona As Integer
         Get
             Return _idPersona
@@ -70,16 +83,4 @@
         End Set
     End Property
 
-    Public Sub New()
-    End Sub
-
-    Public Sub New(idPersona As Integer, nombre As String, apellido1 As String, apellido2 As String, nacionalidad As String, fechaNacimiento As Date, telefono As String)
-        Me.IdPersona = idPersona
-        Me.Nombre = nombre
-        Me.Apellido1 = apellido1
-        Me.Apellido2 = apellido2
-        Me.Nacionalidad = nacionalidad
-        Me.FechaNacimiento = fechaNacimiento
-        Me.Telefono = telefono
-    End Sub
 End Class

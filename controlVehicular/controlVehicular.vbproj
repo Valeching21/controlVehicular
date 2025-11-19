@@ -224,6 +224,7 @@
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="db\dbPersona.vb" />
     <Compile Include="Default.aspx.vb">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default.aspx</DependentUpon>
@@ -291,13 +292,6 @@
     <Compile Include="ViewSwitcher.ascx.designer.vb">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Site.Mobile.Master.vb">
-      <DependentUpon>Site.Mobile.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Site.Mobile.Master.designer.vb">
-      <DependentUpon>Site.Mobile.Master</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -318,7 +312,6 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <Content Include="Site.Master" />
-    <Content Include="Site.Mobile.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.7.0.slim.min.map" />

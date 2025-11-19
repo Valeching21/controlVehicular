@@ -4,6 +4,17 @@
     Private _numVehiculos As String
 
     Public Sub New()
+        MyBase.New()
+    End Sub
+
+    Public Sub New(idPropietario As Integer, numVehiculos As String, persona As Persona)
+        MyBase.New(persona.IdPersona, persona.Nombre,
+                   persona.Apellido1,
+                   persona.Apellido2,
+                   persona.Nacionalidad,
+                   persona.FechaNacimiento, persona.Telefono)
+        Me.IdPropietario = idPropietario
+        Me.NumVehiculos = numVehiculos
     End Sub
 
     Public Sub New(idPropietario As Integer, numVehiculos As String)
