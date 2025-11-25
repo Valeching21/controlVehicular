@@ -50,7 +50,7 @@
         OnRowUpdating="GridView1_RowUpdating" 
         OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
         <Columns>
-            <asp:CommandField ShowSelectButton="True" ShowEditButton="true" ControlStyle-CssClass="btn btn-primary" />
+            <asp:CommandField ShowSelectButton="True" ControlStyle-CssClass="btn btn-primary" />
            <asp:BoundField DataField="idPersona" HeaderText="idPersona" ReadOnly="True" SortExpression="idPersona" Visible="False" />
            <asp:BoundField DataField="Nombre" HeaderText="Nombre" SortExpression="Nombre" />
            <asp:BoundField DataField="Apellido1" HeaderText="Apellido1" SortExpression="Apellido1" />

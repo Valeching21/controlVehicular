@@ -1,4 +1,5 @@
-﻿Public Class FormPersona
+﻿Imports controlVehicular.Utils
+Public Class FormPersona
     Inherits System.Web.UI.Page
     Public Persona As New Persona()
     Protected dbHelper As New dbPersona()
@@ -10,21 +11,33 @@
     End Sub
 
     Protected Sub btn_guardar_Click(sender As Object, e As EventArgs)
-        Persona.Nombre = txt_nombre.Text
-        Persona.Apellido1 = txt_apellido1.Text
-        Persona.Apellido2 = txt_apellido2.Text
-        Persona.FechaNacimiento = txt_fecha.Text
-        Persona.Nacionalidad = txt_Nacionalidad.Text
-        Persona.Telefono = txt_Telefono.Text
+        Try
+            Persona.Nombre = txt_nombre.Text
+            Persona.Apellido1 = txt_apellido1.Text
+            Persona.Apellido2 = txt_apellido2.Text
+            Persona.FechaNacimiento = txt_fecha.Text
+            Persona.Nacionalidad = txt_Nacionalidad.Text
+            Persona.Telefono = txt_Telefono.Text
 
-        lbl_mensaje.Text = dbHelper.create(Persona)
-        GridView1.DataBind()
-        txt_nombre.Text = ""
-        txt_apellido1.Text = ""
-        txt_apellido2.Text = ""
-        txt_fecha.Text = ""
-        txt_Nacionalidad.Text = ""
-        txt_Telefono.Text = ""
+            Dim mensaje = dbHelper.create(Persona)
+            If mensaje.Contains("Error") Then
+                SwalUtils.ShowSwalError(Me, "Error", mensaje)
+            Else
+                SwalUtils.ShowSwal(Me, mensaje)
+            End If
+
+            GridView1.DataBind()
+            txt_nombre.Text = ""
+            txt_apellido1.Text = ""
+            txt_apellido2.Text = ""
+            txt_fecha.Text = ""
+            txt_Nacionalidad.Text = ""
+            txt_Telefono.Text = ""
+        Catch ex As Exception
+            lbl_mensaje.Text = "Error al guardar la persona: " & ex.Message
+            SwalUtils.ShowSwalError(Me, "Error al guardar la persona", ex.Message)
+        End Try
+
 
         btn_regresar.Visible = False
         btn_guardar.Visible = True
@@ -35,13 +48,19 @@
 
     Protected Sub GridView1_RowDeleting(sender As Object, e As GridViewDeleteEventArgs)
         Try
-            Dim Id As Integer = Convert.ToInt32(GridView1.DataKeys(e.RowIndex).Value)
-            dbHelper.delete(Id)
+            Dim id As Integer = Convert.ToInt32(GridView1.DataKeys(e.RowIndex).Value)
+
+            Dim mensaje = dbHelper.delete(id)
+            If mensaje.Contains("Error") Then
+                SwalUtils.ShowSwalError(Me, "Error", mensaje)
+            Else
+                SwalUtils.ShowSwal(Me, mensaje)
+            End If
             e.Cancel = True
             GridView1.DataBind()
-            lbl_mensaje.Text = "Persona eliminada correctamente."
         Catch ex As Exception
             lbl_mensaje.Text = "Error al eliminar la persona: " & ex.Message
+            SwalUtils.ShowSwalError(Me, "Error al eliminar la persona", ex.Message)
         End Try
     End Sub
 
@@ -83,7 +102,7 @@
         txt_nombre.Text = row.Cells(2).Text
         txt_apellido1.Text = row.Cells(3).Text
         txt_apellido2.Text = row.Cells(4).Text
-        txt_fecha.Text = row.Cells(6).Text ' OJO: Fecha está más adelante
+        txt_fecha.Text = row.Cells(6).Text
         txt_Nacionalidad.Text = row.Cells(5).Text
         txt_Telefono.Text = row.Cells(7).Text
 
