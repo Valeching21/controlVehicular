@@ -1,7 +1,10 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Security.Cryptography
+
 
 Public Class dbPersona
     Public ReadOnly connectionString As String = ConfigurationManager.ConnectionStrings("II-46connectionString").ConnectionString
+    Private ReadOnly dbHelper = New DbHelper() ' Clase para manejar conexiones y consultas
 
     Public Function create(Persona As Persona) As String
         Try
@@ -17,19 +20,11 @@ Public Class dbPersona
             New SqlParameter("@Telefono", Persona.Telefono)
         }
 
-            Using connection As New SqlConnection(connectionString)
-                Using command As New SqlCommand(sql, connection)
-                    command.Parameters.AddRange(parametros.ToArray())
-                    connection.Open()
-                    command.ExecuteNonQuery()
-                End Using
-            End Using
-
-            Return "Persona creada correctamente."
-
+            dbHelper.ExecuteNonQuery(sql, parametros)
         Catch ex As Exception
             Return "Error: " & ex.Message
         End Try
+        Return "Persona creada correctamente."
     End Function
 
     Public Function delete(id As Integer) As String
@@ -38,13 +33,7 @@ Public Class dbPersona
             Dim parametros As New List(Of SqlParameter) From {
                 New SqlParameter("@Id", id)
             }
-            Using connection As New SqlConnection(connectionString)
-                Using command As New SqlCommand(sql, connection)
-                    command.Parameters.AddRange(parametros.ToArray())
-                    connection.Open()
-                    command.ExecuteNonQuery()
-                End Using
-            End Using
+            dbHelper.ExecuteNonQuery(sql, parametros)
         Catch ex As Exception
         End Try
         Return "Persona Eliminada"
@@ -71,19 +60,12 @@ Public Class dbPersona
                 New SqlParameter("@Id", Persona.IdPersona)
             }
 
-            Using connection As New SqlConnection(connectionString)
-                Using command As New SqlCommand(sql, connection)
-                    command.Parameters.AddRange(parametros.ToArray())
-                    connection.Open()
-                    command.ExecuteNonQuery()
-                End Using
-            End Using
-
-            Return "Persona Actualizada"
+            dbHelper.ExecuteNonQuery(sql, parametros)
 
         Catch ex As Exception
             Return "Error: " & ex.Message
         End Try
+        Return "Persona Actualizada"
     End Function
 
 End Class

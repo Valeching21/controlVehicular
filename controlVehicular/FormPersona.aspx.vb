@@ -77,23 +77,36 @@ Public Class FormPersona
 
     Protected Sub GridView1_RowUpdating(sender As Object, e As GridViewUpdateEventArgs)
 
-        Dim Id As Integer = Convert.ToInt32(GridView1.DataKeys(e.RowIndex).Value)
-        Dim persona As Persona = New Persona With {
+        Try
+            Dim id As Integer = Convert.ToInt32(GridView1.DataKeys(e.RowIndex).Value)
+            Dim persona = New Persona With {
             .Nombre = e.NewValues("Nombre"),
-            .Apellido1 = e.NewValues("Apellido"),
+            .Apellido1 = e.NewValues("Apellido1"),
             .Apellido2 = e.NewValues("Apellido2"),
-            .FechaNacimiento = e.NewValues("Fecha"),
-            .Nacionalidad = e.NewValues("Nacionalidad"),
+            .FechaNacimiento = e.NewValues("FechaNacimiento"),
             .Telefono = e.NewValues("Telefono"),
-            .IdPersona = Id
+            .Nacionalidad = e.NewValues("Nacionalidad"),
+            .IdPersona = id
         }
-        dbHelper.update(persona)
-        e.Cancel = True
-        lbl_mensaje.Text = "Se actualizó la Información"
-        GridView1.DataBind()
-        GridView1.EditIndex = -1
+
+            Dim mensaje = dbHelper.update(persona)
+
+            If mensaje.Contains("Error") Then
+                SwalUtils.ShowSwalError(Me, "Error", mensaje)
+            Else
+                SwalUtils.ShowSwal(Me, mensaje) 'success
+            End If
+
+            GridView1.DataBind()
+            e.Cancel = True
+            GridView1.EditIndex = -1
+
+        Catch ex As Exception
+            SwalUtils.ShowSwalError(Me, "Error al actualizar la persona", ex.Message)
+        End Try
 
     End Sub
+
 
     Protected Sub GridView1_SelectedIndexChanged(sender As Object, e As EventArgs)
         Dim Id As Integer = Convert.ToInt32(GridView1.DataKeys(GridView1.SelectedIndex).Value)
@@ -114,28 +127,39 @@ Public Class FormPersona
     End Sub
 
     Protected Sub btn_actualizar_Click(sender As Object, e As EventArgs)
+        Try
+            Dim persona As New Persona With {
+                .Nombre = txt_nombre.Text,
+                .Apellido1 = txt_apellido1.Text,
+                .Apellido2 = txt_apellido2.Text,
+                .FechaNacimiento = txt_fecha.Text,
+                .Nacionalidad = txt_Nacionalidad.Text,
+                .Telefono = txt_Telefono.Text,
+                .IdPersona = editando.Value
+            }
+
+            Dim mensaje As String = dbHelper.update(persona)
+
+            If mensaje.Contains("Error") Then
+                SwalUtils.ShowSwalError(Me, "Error al actualizar", mensaje)
+            Else
+                SwalUtils.ShowSwal(Me, "Actualizado", "La información se actualizó correctamente.", "success")
+            End If
 
 
-        Dim persona As Persona = New Persona With {
-            .Nombre = txt_nombre.Text,
-            .Apellido1 = txt_apellido1.Text,
-            .Apellido2 = txt_apellido2.Text,
-            .FechaNacimiento = txt_fecha.Text,
-            .Nacionalidad = txt_Nacionalidad.Text,
-            .Telefono = txt_Telefono.Text,
-            .IdPersona = editando.Value
-        }
-        dbHelper.update(persona)
-        lbl_mensaje.Text = "Se actualizó la Información"
-        txt_nombre.Text = ""
-        txt_apellido1.Text = ""
-        txt_apellido2.Text = ""
-        txt_fecha.Text = ""
-        txt_Nacionalidad.Text = ""
-        txt_Telefono.Text = ""
-        GridView1.DataBind()
-        GridView1.EditIndex = -1
+            txt_nombre.Text = ""
+            txt_apellido1.Text = ""
+            txt_apellido2.Text = ""
+            txt_fecha.Text = ""
+            txt_Nacionalidad.Text = ""
+            txt_Telefono.Text = ""
 
+            GridView1.DataBind()
+            GridView1.EditIndex = -1
+
+        Catch ex As Exception
+            SwalUtils.ShowSwalError(Me, "Error inesperado", ex.Message)
+        End Try
     End Sub
 
     Protected Sub btn_regresar_Click(sender As Object, e As EventArgs)
