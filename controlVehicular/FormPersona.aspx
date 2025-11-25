@@ -17,11 +17,17 @@
                 <div class="col-md-4">
                     <asp:TextBox ID="txt_apellido2" placeholder="Ingresar Segundo Apellido" CssClass="form-control" runat="server"></asp:TextBox>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <asp:TextBox ID="txt_fecha" placeholder="Ingresar Fecha de Ncimiento" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox>
                 </div>
+                 <div class="col-md-4">
+                    <asp:TextBox ID="txt_Nacionalidad" placeholder="Ingresar su Nacionalidad" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="col-md-4">
+                    <asp:TextBox ID="txt_Telefono" placeholder="Ingresar su Telefono" CssClass="form-control" runat="server" TextMode="Phone"></asp:TextBox>
+                </div>
                 <div class="col-md-2 d-grid">
-                    <asp:Button ID="btn_guardar" CssClass="btn btn-success" runat="server" Text="Guardar" OnClick="btn_guardar"  />
+                    <asp:Button ID="btn_guardar" CssClass="btn btn-success" runat="server" Text="Guardar" OnClick="btn_guardar_Click"  />
                 </div>
                 <div class="col-md-2 d-grid">
                   <asp:Button ID="btn_actualizar" CssClass="btn btn-success" runat="server" Text="Actualizar" OnClick="btn_actualizar_Click"/>
@@ -45,7 +51,7 @@
         OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
         <Columns>
             <asp:CommandField ShowSelectButton="True" ShowEditButton="true" ControlStyle-CssClass="btn btn-primary" />
-           <asp:BoundField DataField="idPersona" HeaderText="idPersona" ReadOnly="True" SortExpression="idPersona" InsertVisible="False" />
+           <asp:BoundField DataField="idPersona" HeaderText="idPersona" ReadOnly="True" SortExpression="idPersona" Visible="False" />
            <asp:BoundField DataField="Nombre" HeaderText="Nombre" SortExpression="Nombre" />
            <asp:BoundField DataField="Apellido1" HeaderText="Apellido1" SortExpression="Apellido1" />
            <asp:BoundField DataField="Apellido2" HeaderText="Apellido2" SortExpression="Apellido2" />

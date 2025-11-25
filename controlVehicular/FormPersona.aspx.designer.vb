@@ -59,6 +59,24 @@ Partial Public Class FormPersona
     Protected WithEvents txt_fecha As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''Control txt_Nacionalidad.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents txt_Nacionalidad As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control txt_Telefono.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents txt_Telefono As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
     '''Control btn_guardar.
     '''</summary>
     '''<remarks>

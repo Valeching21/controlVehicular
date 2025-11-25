@@ -5,13 +5,17 @@ Public Class dbPersona
 
     Public Function create(Persona As Persona) As String
         Try
-            Dim sql As String = "INSERT INTO Personas (Nombre, Apellido1, Apellido2, Edad) VALUES(@Nombre, @Apellido1, @Apellido2, @Edad)"
+            Dim sql As String = "INSERT INTO Persona (Nombre, Apellido1, Apellido2, FechaNacimiento, Nacionalidad, Telefono) 
+                             VALUES(@Nombre, @Apellido1, @Apellido2, @FechaNacimiento, @Nacionalidad, @Telefono)"
+
             Dim parametros As New List(Of SqlParameter) From {
-                New SqlParameter("@Nombre", Persona.Nombre),
-                New SqlParameter("@Apellido1", Persona.Apellido1),
-                New SqlParameter("@Apellido12", Persona.Apellido2),
-                New SqlParameter("@Edad", Persona.FechaNacimiento)
-            }
+            New SqlParameter("@Nombre", Persona.Nombre),
+            New SqlParameter("@Apellido1", Persona.Apellido1),
+            New SqlParameter("@Apellido2", Persona.Apellido2),
+            New SqlParameter("@FechaNacimiento", Persona.FechaNacimiento),
+            New SqlParameter("@Nacionalidad", Persona.Nacionalidad),
+            New SqlParameter("@Telefono", Persona.Telefono)
+        }
 
             Using connection As New SqlConnection(connectionString)
                 Using command As New SqlCommand(sql, connection)
@@ -19,17 +23,18 @@ Public Class dbPersona
                     connection.Open()
                     command.ExecuteNonQuery()
                 End Using
-
             End Using
-        Catch ex As Exception
 
+            Return "Persona creada correctamente."
+
+        Catch ex As Exception
+            Return "Error: " & ex.Message
         End Try
-        Return "Persona Creada"
     End Function
 
     Public Function delete(id As Integer) As String
         Try
-            Dim sql As String = "DELETE FROM Personas WHERE ID = @Id"
+            Dim sql As String = "DELETE FROM Persona WHERE IdPersona = @Id"
             Dim parametros As New List(Of SqlParameter) From {
                 New SqlParameter("@Id", id)
             }
@@ -47,13 +52,25 @@ Public Class dbPersona
 
     Public Function update(Persona As Persona) As String
         Try
-            Dim sql As String = "UPDATE Personas SET Nombre = @Nombre, Apellido = @Apellido, Edad = @Edad WHERE ID = @Id"
+            Dim sql As String = "UPDATE Persona 
+                             SET Nombre = @Nombre, 
+                                 Apellido1 = @Apellido1, 
+                                 Apellido2 = @Apellido2, 
+                                 FechaNacimiento = @FechaNacimiento, 
+                                 Nacionalidad = @Nacionalidad,
+                                 Telefono = @Telefono 
+                             WHERE idPersona = @Id"
+
             Dim parametros As New List(Of SqlParameter) From {
                 New SqlParameter("@Nombre", Persona.Nombre),
-                New SqlParameter("@Apellido", Persona.Apellido),
-                New SqlParameter("@Edad", Persona.Edad),
-                New SqlParameter("@Id", Persona.ID)
+                New SqlParameter("@Apellido1", Persona.Apellido1),
+                New SqlParameter("@Apellido2", Persona.Apellido2),
+                New SqlParameter("@FechaNacimiento", Persona.FechaNacimiento),
+                New SqlParameter("@Nacionalidad", Persona.Nacionalidad),
+                New SqlParameter("@Telefono", Persona.Telefono),
+                New SqlParameter("@Id", Persona.IdPersona)
             }
+
             Using connection As New SqlConnection(connectionString)
                 Using command As New SqlCommand(sql, connection)
                     command.Parameters.AddRange(parametros.ToArray())
@@ -61,10 +78,12 @@ Public Class dbPersona
                     command.ExecuteNonQuery()
                 End Using
             End Using
+
+            Return "Persona Actualizada"
+
         Catch ex As Exception
+            Return "Error: " & ex.Message
         End Try
-        Return "Persona Actualizada"
-
-
     End Function
+
 End Class
