@@ -1,3 +1,26 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="Home.aspx.vb" Inherits="controlVehicular.Home" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="container mt-4">
+        <div class="card shadow-sm border-0" style="background-color:#b9b7ba;">
+            <div class="card-header text-white" style="background-color:#704589;">
+                <h4 class="mb-0">Bienvenida</h4>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-pink">Usuario:</label>
+                    <asp:Label ID="lblUsuario" runat="server" CssClass="form-control-plaintext text-dark fw-semibold" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-pink">Email:</label>
+                    <asp:Label ID="lblEmail" runat="server" CssClass="form-control-plaintext text-dark fw-semibold" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .text-pink {
+            color: #704589;
+        }
+    </style>
 </asp:Content>

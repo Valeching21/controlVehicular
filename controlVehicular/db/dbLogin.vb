@@ -37,5 +37,23 @@ Public Class dbLogin
         Return "Usuario registrado"
     End Function
 
+    Public Function GetUser(usuario As String) As Object
+        Dim sql As String = "SELECT IdUsuario, NombreUsuario, Rol, Email FROM Usuarios WHERE NombreUsuario = @Usuario"
+        Dim Parametros As New List(Of SqlParameter) From {
+            New SqlParameter("@Usuario", usuario)
+        }
+        Dim dt As DataTable = dbHelper.ExecuteQuery(sql, Parametros) ' Ejecutar la consulta y obtener el DataTable
+        Dim UsuarioObj As New Usuario()
+        If dt.Rows.Count > 0 Then ' Verificar si se encontró el usuario
+            UsuarioObj.IdUsuario = Convert.ToInt32(dt.Rows(0)("IdUsuario"))
+            UsuarioObj.NombreUsuario = dt.Rows(0)("NombreUsuario").ToString()
+            UsuarioObj.Rol = dt.Rows(0)("Rol").ToString()
+            UsuarioObj.Email = dt.Rows(0)("Email").ToString()
+            Return UsuarioObj
+        Else
+            Return Nothing ' O manejar el caso donde no se encuentra el usuario
+        End If
+    End Function
+
 
 End Class
