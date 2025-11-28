@@ -21,7 +21,7 @@
                 <asp:GridView ID="gvVehiculosPersona" runat="server" AutoGenerateColumns="False" 
                     CssClass="table table-striped table-hover border border-pink" 
                     DataKeyNames="IdVehiculo" EmptyDataText="Esta persona no tiene vehículos asignados."
-                    DataSourceID="SqlDataSource1" OnRowDeleting="gvVehiculosPersona_RowDeleting">
+                    OnRowDeleting="gvVehiculosPersona_RowDeleting">
                     <Columns>
                         <asp:BoundField DataField="IdVehiculo" HeaderText="IdVehiculo" ReadOnly="True" SortExpression="IdVehiculo" />
                         <asp:BoundField DataField="Placa" HeaderText="Placa" SortExpression="Placa" />
@@ -33,7 +33,7 @@
                     </Columns>
                     </asp:GridView>
 
-                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:II-46ConnectionString %>" SelectCommand="SELECT * FROM [Vehiculo]"></asp:SqlDataSource>
+                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:II-46ConnectionString %>" SelectCommand="SELECT * FROM [Vehiculos]"></asp:SqlDataSource>
 
 
             </div>

@@ -39,7 +39,7 @@ Public Class dbPropietario
         Try
             Dim sql As String = "
                 SELECT p.IdPersona, CONCAT(p.Nombre, ' ', p.Apellido1, ' ', p.Apellido2) AS NombreCompleto
-                FROM Personas p
+                FROM Persona p
                 WHERE p.Activo = 1"
             Return dbHelper.ExecuteQuery(sql)
         Catch ex As Exception
@@ -55,7 +55,7 @@ Public Class dbPropietario
                        CONCAT(pe.Nombre, ' ', pe.Apellido1, ' ', pe.Apellido2) AS NombrePropietario
                 FROM Vehiculos v
                 INNER JOIN Propietarios pr ON v.IdPropietario = pr.IdPropietario
-                INNER JOIN Personas pe ON pr.IdPersona = pe.IdPersona
+                INNER JOIN Persona pe ON pr.IdPersona = pe.IdPersona
                 WHERE pr.IdPersona = @IdPersona"
             Dim parametros As New List(Of SqlParameter) From {
                 New SqlParameter("@IdPersona", idPersona)
